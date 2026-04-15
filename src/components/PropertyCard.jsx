@@ -6,57 +6,70 @@ export default function PropertyCard({ property }) {
 
   return (
     <div
-      className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden group cursor-pointer border border-slate-200"
+      className="bg-white rounded-3xl overflow-hidden group cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl shadow-md border border-gray-100"
       onClick={() => navigate(`/property/${property.id}`)}
     >
       {/* Video thumbnail */}
       <div className="relative overflow-hidden aspect-[4/5] bg-gray-900">
         <video
           src={property.video}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           muted
           playsInline
           preload="metadata"
-          // seek to 1s so the poster frame isn't a black frame
           onLoadedMetadata={(e) => {
             e.target.currentTime = 1;
           }}
         />
-        {/* Play icon overlay */}
-        <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
-          <div className="bg-white/80 rounded-full p-2.5">
-            <Play size={18} className="text-gray-900 ml-0.5" />
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+
+        {/* Play button */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="bg-white/90 backdrop-blur-sm rounded-full p-3.5 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 scale-90 group-hover:scale-100">
+            <Play size={20} className="ml-0.5" style={{ color: "#0047AB" }} />
           </div>
         </div>
+
+        {/* Tag */}
         <span
-          className="absolute top-3 left-3 text-white text-xs font-semibold px-2.5 py-1 rounded-full"
-          style={{ backgroundColor: "rgba(0, 71, 171, 0.55)" }}
+          className="absolute top-3 left-3 text-white text-xs font-semibold px-3 py-1 rounded-full backdrop-blur-sm"
+          style={{ backgroundColor: "rgba(0, 71, 171, 0.5)" }}
         >
           {property.tag}
         </span>
+
+        {/* Price on image */}
+        <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+          <span className="text-white font-bold text-lg drop-shadow-lg">
+            {property.price}
+          </span>
+        </div>
       </div>
 
-      <div className="p-4" style={{ backgroundColor: "#F8F9FA" }}>
-        <h3 className="font-bold text-gray-900 text-base mb-1 truncate">
+      {/* Card body */}
+      <div className="p-5">
+        <h3 className="font-bold text-gray-900 text-base mb-1.5 leading-snug">
           {property.title}
         </h3>
         <div
-          className="flex items-center gap-1 text-sm mb-3"
+          className="flex items-center gap-1.5 text-sm"
           style={{ color: "#4A4A4A" }}
         >
-          <MapPin size={13} />
+          <MapPin
+            size={13}
+            className="flex-shrink-0"
+            style={{ color: "#0047AB" }}
+          />
           <span className="truncate">{property.location}</span>
         </div>
-        <div className="flex items-center justify-between">
-          <span className="font-bold text-base" style={{ color: "#0047AB" }}>
-            {property.price}
-          </span>
+        <div className="mt-4 pt-4 border-t border-gray-100">
           <button
             onClick={(e) => {
               e.stopPropagation();
               navigate(`/property/${property.id}`);
             }}
-            className="text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors"
+            className="w-full text-white text-sm font-semibold py-2.5 rounded-xl transition-all duration-200"
             style={{ backgroundColor: "#0047AB" }}
             onMouseEnter={(e) =>
               (e.currentTarget.style.backgroundColor = "#2E90FF")

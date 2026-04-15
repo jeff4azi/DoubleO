@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { ShieldCheck, MapPin, Building2 } from "lucide-react";
+import { ShieldCheck, MapPin, Building2, ChevronDown } from "lucide-react";
 import logo from "../assets/double-o.png";
 import heroBg from "../assets/backgroundimage.avif";
 import Navbar from "./Navbar";
@@ -9,121 +9,202 @@ import { properties } from "../data";
 
 export default function Home() {
   const listingsRef = useRef(null);
-
-  const scrollToListings = () => {
+  const scrollToListings = () =>
     listingsRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#F8F9FA" }}>
       <Navbar />
 
-      {/* Hero */}
+      {/* ── Hero ── */}
       <section
-        className="relative text-white pt-28 pb-20 px-4"
+        className="relative text-white min-h-screen flex items-center justify-center px-6"
         style={{
           backgroundImage: `url(${heroBg})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
-        {/* Blue overlay */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(0,20,80,0.75) 0%, rgba(0,40,120,0.70) 100%)",
+              "linear-gradient(160deg, rgba(0,15,60,0.82) 0%, rgba(0,40,120,0.72) 100%)",
           }}
         />
+
         <div className="relative z-10 max-w-3xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 text-blue-100 text-sm px-4 py-1.5 rounded-full mb-6 bg-white/10">
-            <Building2 size={14} />
+          <div className="inline-flex items-center gap-2 text-blue-200 text-xs font-semibold tracking-widest uppercase px-4 py-2 rounded-full mb-8 border border-white/20 bg-white/5 backdrop-blur-sm">
+            <Building2 size={12} />
             Trusted Housing in Akure
           </div>
-          <div className="flex justify-center mb-6">
-            <img
-              src={logo}
-              alt="Double O Housing & Services"
-              className="h-24 w-auto object-contain drop-shadow-lg"
-            />
-          </div>
+
+          <img
+            src={logo}
+            alt="Double O"
+            className="h-20 w-auto object-contain mx-auto mb-8 drop-shadow-2xl"
+          />
+
           <h1
-            className="text-4xl md:text-5xl font-extrabold leading-tight mb-4"
-            style={{ textShadow: "0 2px 12px rgba(0,0,0,0.5)" }}
+            className="text-5xl md:text-6xl font-black leading-[1.1] tracking-tight mb-5"
+            style={{ textShadow: "0 4px 24px rgba(0,0,0,0.4)" }}
           >
             DOUBLE O HOUSING
             <br />
-            <span style={{ color: "#2E90FF" }}>AND SERVICES</span>
+            <span style={{ color: "#60a5fa" }}>AND SERVICES</span>
           </h1>
+
           <p
-            className="text-blue-100 text-lg md:text-xl mb-8 max-w-xl mx-auto"
-            style={{ textShadow: "0 1px 6px rgba(0,0,0,0.4)" }}
+            className="text-blue-100/90 text-lg md:text-xl mb-10 max-w-lg mx-auto leading-relaxed font-light"
+            style={{ textShadow: "0 2px 8px rgba(0,0,0,0.3)" }}
           >
             Find safe and affordable housing near your school and city
           </p>
-          <button
-            onClick={scrollToListings}
-            className="font-bold px-8 py-3.5 rounded-xl text-base transition-colors shadow-lg bg-white"
-            style={{ color: "#0047AB" }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.backgroundColor = "#E2E8F0")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.backgroundColor = "#ffffff")
-            }
-          >
-            View Listings
-          </button>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button
+              onClick={scrollToListings}
+              className="font-bold px-8 py-4 rounded-2xl text-base transition-all duration-200 shadow-xl hover:shadow-2xl hover:-translate-y-0.5 bg-white"
+              style={{ color: "#0047AB" }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.backgroundColor = "#E2E8F0")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.backgroundColor = "#ffffff")
+              }
+            >
+              Browse Listings
+            </button>
+            <WhatsAppButton
+              label="Chat on WhatsApp"
+              className="px-8 py-4 rounded-2xl text-base shadow-xl hover:shadow-2xl hover:-translate-y-0.5"
+            />
+          </div>
         </div>
+
+        {/* Scroll cue */}
+        <button
+          onClick={scrollToListings}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 hover:text-white/80 transition-colors animate-bounce"
+        >
+          <ChevronDown size={28} />
+        </button>
       </section>
 
-      {/* About */}
-      <section className="bg-white py-14 px-4">
-        <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8">
-          <div className="flex-1">
-            <h2 className="text-2xl font-bold text-gray-900 mb-3">About Us</h2>
-            <p className="leading-relaxed" style={{ color: "#4A4A4A" }}>
-              We help students and individuals find safe, affordable and
-              well-located apartments. With years of experience in the Akure
-              housing market, Double O Housing and Services connects you to
-              verified properties that match your budget and lifestyle.
-            </p>
-          </div>
-          <div className="flex flex-col gap-4 w-full md:w-auto">
-            {[
-              { icon: <ShieldCheck size={20} />, label: "Verified Properties" },
-              { icon: <MapPin size={20} />, label: "Prime Locations" },
-              { icon: <Building2 size={20} />, label: "All Budgets" },
-            ].map(({ icon, label }) => (
-              <div
-                key={label}
-                className="flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-sm"
-                style={{ backgroundColor: "#E2E8F0", color: "#0047AB" }}
-              >
-                {icon}
+      {/* ── Stats bar ── */}
+      <section className="bg-white border-b border-gray-100">
+        <div className="max-w-4xl mx-auto px-6 py-6 grid grid-cols-3 divide-x divide-gray-100">
+          {[
+            { value: "50+", label: "Properties Listed" },
+            { value: "200+", label: "Happy Tenants" },
+            { value: "5+", label: "Years Experience" },
+          ].map(({ value, label }) => (
+            <div key={label} className="text-center px-4">
+              <div className="text-2xl font-black" style={{ color: "#0047AB" }}>
+                {value}
+              </div>
+              <div className="text-xs text-gray-500 mt-0.5 font-medium">
                 {label}
               </div>
-            ))}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── About ── */}
+      <section className="bg-white py-20 px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <p
+                className="text-xs font-bold tracking-widest uppercase mb-3"
+                style={{ color: "#0047AB" }}
+              >
+                Who We Are
+              </p>
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 leading-tight mb-5">
+                Housing made simple,
+                <br />
+                safe & affordable
+              </h2>
+              <p className="leading-relaxed text-gray-500 mb-6">
+                We help students and individuals find safe, affordable and
+                well-located apartments. With years of experience in the Akure
+                housing market, Double O Housing and Services connects you to
+                verified properties that match your budget and lifestyle.
+              </p>
+              <WhatsAppButton
+                label="Talk to Us"
+                className="text-sm px-6 py-3 rounded-xl"
+              />
+            </div>
+            <div className="grid grid-cols-1 gap-4">
+              {[
+                {
+                  icon: <ShieldCheck size={22} />,
+                  title: "Verified Properties",
+                  desc: "Every listing is personally inspected and verified.",
+                },
+                {
+                  icon: <MapPin size={22} />,
+                  title: "Prime Locations",
+                  desc: "Close to schools, markets and transport hubs.",
+                },
+                {
+                  icon: <Building2 size={22} />,
+                  title: "All Budgets Welcome",
+                  desc: "From student rooms to luxury apartments.",
+                },
+              ].map(({ icon, title, desc }) => (
+                <div
+                  key={title}
+                  className="flex items-start gap-4 p-5 rounded-2xl border border-gray-100 hover:border-blue-100 hover:bg-blue-50/30 transition-colors"
+                >
+                  <div
+                    className="p-2.5 rounded-xl flex-shrink-0"
+                    style={{ backgroundColor: "#E2E8F0", color: "#0047AB" }}
+                  >
+                    {icon}
+                  </div>
+                  <div>
+                    <div className="font-bold text-gray-900 text-sm mb-0.5">
+                      {title}
+                    </div>
+                    <div className="text-gray-500 text-xs leading-relaxed">
+                      {desc}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Properties */}
+      {/* ── Listings ── */}
       <section
         ref={listingsRef}
-        className="py-14 px-4"
+        className="py-20 px-6"
         style={{ backgroundColor: "#F8F9FA" }}
       >
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-              Featured Properties
-            </h2>
-            <p style={{ color: "#4A4A4A" }}>
-              Browse our available listings and find your next home
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+            <div>
+              <p
+                className="text-xs font-bold tracking-widest uppercase mb-2"
+                style={{ color: "#0047AB" }}
+              >
+                Available Now
+              </p>
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900">
+                Featured Properties
+              </h2>
+            </div>
+            <p className="text-gray-400 text-sm max-w-xs text-right hidden sm:block">
+              Browse our current listings and find your perfect home
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
             {properties.map((p) => (
               <PropertyCard key={p.id} property={p} />
             ))}
@@ -131,33 +212,53 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* ── CTA Banner ── */}
       <section
-        className="py-16 px-4 text-center text-white"
+        className="py-24 px-6 text-white relative overflow-hidden"
         style={{ backgroundColor: "#0047AB" }}
       >
-        <div className="max-w-xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold mb-3">
-            Ready to Find Your Home?
+        {/* Decorative circles */}
+        <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full opacity-10 bg-white" />
+        <div className="absolute -bottom-16 -left-16 w-64 h-64 rounded-full opacity-10 bg-white" />
+        <div className="relative z-10 max-w-2xl mx-auto text-center">
+          <p className="text-xs font-bold tracking-widest uppercase text-blue-200 mb-4">
+            Get In Touch
+          </p>
+          <h2 className="text-3xl md:text-4xl font-black mb-4 leading-tight">
+            Ready to find your next home?
           </h2>
-          <p className="text-blue-100 mb-8">
-            Reach out to us directly on WhatsApp. We respond fast and help you
-            secure your apartment quickly.
+          <p className="text-blue-200 mb-10 text-lg font-light max-w-md mx-auto">
+            We respond fast. Message us on WhatsApp and secure your apartment
+            today.
           </p>
           <WhatsAppButton
             label="Contact on WhatsApp"
-            className="text-base px-8 py-4"
+            className="text-base px-10 py-4 rounded-2xl shadow-2xl"
           />
         </div>
       </section>
 
-      {/* Footer */}
-      <footer
-        className="text-gray-400 text-center py-6 text-sm"
-        style={{ backgroundColor: "#4A4A4A" }}
-      >
-        © {new Date().getFullYear()} Double O Housing and Services. All rights
-        reserved.
+      {/* ── Footer ── */}
+      <footer style={{ backgroundColor: "#1a1a2e" }}>
+        <div className="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4">
+          <img
+            src={logo}
+            alt="Double O"
+            className="h-8 w-auto object-contain opacity-80"
+          />
+          <p className="text-gray-500 text-sm text-center">
+            © {new Date().getFullYear()} Double O Housing and Services. All
+            rights reserved.
+          </p>
+          <a
+            href="https://wa.me/2348166610041"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-500 hover:text-green-400 text-sm transition-colors font-medium"
+          >
+            +234 816 661 0041
+          </a>
+        </div>
       </footer>
     </div>
   );
