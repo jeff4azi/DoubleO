@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #0047ab;
+  --color-brand-hover: #2e90ff;
+  --color-charcoal: #4a4a4a;
+  --color-cloud: #f8f9fa;
+  --color-slate-card: #e2e8f0;
+}
+
+body {
+  @apply font-sans;
+  background-color: #f8f9fa;
+  color: #4a4a4a;
+}
