@@ -1,9 +1,20 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/double-o.png";
 
 export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/98 backdrop-blur-md border-b border-gray-100 shadow-sm">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/98 backdrop-blur-md border-b border-gray-100 shadow-sm" : "bg-transparent"}`}
+    >
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link to="/" className="flex items-center">
           <img
@@ -16,9 +27,13 @@ export default function Navbar() {
           <Link
             to="/"
             className="hidden sm:block text-sm font-medium transition-colors"
-            style={{ color: "#4A4A4A" }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#0047AB")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "#4A4A4A")}
+            style={{ color: scrolled ? "#4A4A4A" : "#ffffff" }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.color = scrolled ? "#0047AB" : "#d1d5db")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.color = scrolled ? "#4A4A4A" : "#ffffff")
+            }
           >
             Listings
           </Link>
